@@ -1,7 +1,7 @@
 /* eslint vars-on-top:0 */
 
 var defaults = {
-    DEBUG: false,
+    DEBUG: false
 };
 
 function BusInfoCard(options) {
@@ -34,7 +34,7 @@ BusInfoCard.prototype.showBusStopInfo = function(busStopInfo, busStopName) {
 
     for (let arrival of busStopInfo.arrivals) {
         if (!arrival.isCancelled) {
-            $(this.busStopInfoTable).append(`<tr><td class="mdl-data-table__cell--non-numeric">${arrival.routeName}</td><td>${arrival.estimatedWait}</td><td>${arrival.scheduledTime}</td></tr>`);
+            $(this.busStopInfoTable).append(`<tr><td class="mdl-data-table__cell--non-numeric"><img src="/images/bus-double-decker-18-25.png"/> ${arrival.routeName}</td><td>${arrival.estimatedWait}</td><td>${arrival.scheduledTime}</td></tr>`);
         }
     }
 

@@ -1,7 +1,7 @@
 /* eslint vars-on-top:0 */
 
 var defaults = {
-    DEBUG: false,
+    DEBUG: false
 };
 
 function BusStopsPool(options) {

@@ -16,7 +16,7 @@
     "rules": {
         "comma-dangle": 2,
         "no-cond-assign": 2,
-        "no-console": 1,
+        "no-console": 0,
         "no-constant-condition": 2,
         "no-control-regex": 2,
         "no-debugger": 2,
@@ -81,7 +81,7 @@
         "no-script-url": 2,
         "no-self-compare": 2,
         "no-sequences": 2,
-        "no-unused-expressions": 2,
+        "no-unused-expressions": 0,
         "no-void": 1,
         "no-warning-comments": [1, { "terms": ["todo", "fixme"], "location": "start" }],
         "no-with": 2,
@@ -157,7 +157,7 @@
         "wrap-regex": 1,
 
         "max-depth": 0,
-        "max-len": [1, 240, 4],
+        "max-len": [1, 360, 4],
         "max-params": [1, 5],
         "max-statements": 0,
         "no-bitwise": 1,

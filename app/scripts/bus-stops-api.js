@@ -1,4 +1,4 @@
-/* eslint vars-on-top:0 */
+/* eslint vars-on-top:0, camelcase:0 */
 
 var defaults = {
     DEBUG: false,

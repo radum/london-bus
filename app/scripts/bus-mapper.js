@@ -177,9 +177,9 @@ BusMapper.prototype._initMapEvents = function() {
     });
 
     this.map.on('zoomend', () => {
-        this.settings.DEBUG && console.info('map zoomend ' + this.getZoom());
+        this.settings.DEBUG && console.info('map zoomend ' + this.map.getZoom());
 
-        this.zoomLevel = this.getZoom();
+        this.zoomLevel = this.map.getZoom();
     });
 
     this.map.on('click', () => {
