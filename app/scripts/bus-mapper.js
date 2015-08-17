@@ -43,10 +43,10 @@ function BusMapper(options) {
 
 BusMapper.prototype.init = function() {
     // Set defaults
-    $.mCustomScrollbar.defaults.scrollButtons.enable = true;
-    $.mCustomScrollbar.defaults.axis = 'y';
+    // $.mCustomScrollbar.defaults.scrollButtons.enable = true;
+    // $.mCustomScrollbar.defaults.axis = 'y';
 
-    $('.bus-stop__info-container').mCustomScrollbar({theme: 'minimal-dark'});
+    // $('.bus-stop__info-container').mCustomScrollbar({theme: 'minimal-dark'});
 
     this.initLocation();
 };

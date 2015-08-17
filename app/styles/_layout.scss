@@ -25,6 +25,7 @@
 
     .mdl-card {
         min-height: 0;
+        max-width: 348px;
     }
 
     .mdl-card__title {
@@ -40,6 +41,7 @@
 
 .bus-stop__info-container {
     max-height: 250px;
+    overflow-y: auto;
 }
 
 .bus-stop-container .mdl-card__title {

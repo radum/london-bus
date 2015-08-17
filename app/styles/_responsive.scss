@@ -1,6 +1,10 @@
 @media (max-width: $grid-tablet-breakpoint - 1) {
     .bus-stop-container {
         right: 0;
+
+        .mdl-card {
+            max-width: none;
+        }
     }
 
     .bus-stop__info-container {
