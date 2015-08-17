@@ -1,0 +1,143 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+        <title>London bus Mapper</title>
+
+        <!-- Add to homescreen for Chrome on Android -->
+        <meta name="mobile-web-app-capable" content="yes">
+
+        <!-- Add to homescreen for Safari on iOS -->
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <meta name="apple-mobile-web-app-title" content="London bus Mapper">
+
+        <!-- Tile icon for Win8 (144x144 + tile color) -->
+        <meta name="msapplication-TileImage" content="/images/favicon/mstile-150x150.png">
+
+        <link rel="shortcut icon" href="favicon.ico?v=2" />
+        <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/images/favicon/apple-touch-icon-57x57.png" />
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/images/favicon/apple-touch-icon-114x114.png" />
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/images/favicon/apple-touch-icon-72x72.png" />
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/images/favicon/apple-touch-icon-144x144.png" />
+        <link rel="apple-touch-icon-precomposed" sizes="60x60" href="/images/favicon/apple-touch-icon-60x60.png" />
+        <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/images/favicon/apple-touch-icon-120x120.png" />
+        <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/images/favicon/apple-touch-icon-76x76.png" />
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/images/favicon/apple-touch-icon-152x152.png" />
+        <link rel="icon" type="image/png" href="/images/favicon/favicon-196x196.png" sizes="196x196" />
+        <link rel="icon" type="image/png" href="/images/favicon/favicon-96x96.png" sizes="96x96" />
+        <link rel="icon" type="image/png" href="/images/favicon/favicon-64x64.png" sizes="64x64" />
+        <link rel="icon" type="image/png" href="/images/favicon/favicon-48x48.png" sizes="48x48" />
+        <link rel="icon" type="image/png" href="/images/favicon/favicon-32x32.png" sizes="32x32" />
+        <link rel="icon" type="image/png" href="/images/favicon/favicon-24x24.png" sizes="24x24" />
+        <link rel="icon" type="image/png" href="/images/favicon/favicon-16x16.png" sizes="16x16" />
+        <link rel="icon" type="image/png" href="/images/favicon/favicon-128x128.png" sizes="128x128" />
+        <meta name="msapplication-square70x70logo" content="/images/favicon/mstile-70x70.png" />
+        <meta name="msapplication-square150x150logo" content="/images/favicon/mstile-150x150.png" />
+        <meta name="msapplication-wide310x150logo" content="/images/favicon/mstile-310x150.png" />
+        <meta name="msapplication-square310x310logo" content="/images/favicon/mstile-310x310.png" />
+        <meta name="msapplication-TileColor" content="#3372DF"/>
+
+        <link href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en" rel="stylesheet">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+        <!-- build:css styles/vendor.css -->
+        <link rel="stylesheet" href="styles/vendor/material.css">
+        <link rel="stylesheet" href="styles/vendor/leaflet.css">
+        <!-- bower:css -->
+        <!-- endbower -->
+        <!-- endbuild -->
+
+        <!-- build:css styles/main.css -->
+        <link rel="stylesheet" href="styles/main.css">
+        <!-- endbuild -->
+
+        <!-- build:js scripts/vendor/modernizr.js -->
+        <script src="/bower_components/modernizr/modernizr.js"></script>
+        <!-- endbuild -->
+    </head>
+    <body>
+        <!--[if lt IE 10]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+            <header class="mdl-layout__header">
+                <div class="mdl-layout__header-row">
+                    <!-- Title -->
+                    <span class="mdl-layout-title">London Buses</span>
+                    <!-- Add spacer, to align navigation to the right -->
+                    <div class="mdl-layout-spacer"></div>
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label mdl-textfield--align-right">
+                        <label class="mdl-button mdl-js-button mdl-button--icon" for="fixed-header-drawer-exp">
+                            <i class="material-icons">search</i>
+                        </label>
+                        <div class="mdl-textfield__expandable-holder">
+                            <input class="mdl-textfield__input" type="text" name="sample" id="fixed-header-drawer-exp" />
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <div class="mdl-layout__drawer">
+                <span class="mdl-layout-title">London Buses</span>
+                <nav class="mdl-navigation">
+                    <a class="mdl-navigation__link" href="https://dl.dropboxusercontent.com/u/1259054/digitas/london-bus.zip">Download</a>
+                    <a class="mdl-navigation__link" href="https://github.com/radum/london-bus">Source code</a>
+                    <a class="mdl-navigation__link" href="http://radumicu.com">by RaduMicu</a>
+                </nav>
+            </div>
+            <main class="mdl-layout__content">
+                <div id="map" class="map-container"></div>
+
+                <div class="mdl-grid bus-stop-container">
+                    <div class="mdl-cell mdl-cell--12-col mdl-grid--no-spacing">
+                        <div class="mdl-card mdl-shadow--2dp mdl-cell--12-col bus-stop__card hidden">
+                            <div class="mdl-card__title bus-stop__card-title">
+                                <h2 class="mdl-card__title-text">{{bus-stop-name}}</h2>
+                                <div class="mdl-layout-spacer"></div>
+                                <i class="material-icons bus-stop__title-icon">&#xE313;</i>
+                            </div>
+                            <div class="mdl-card__supporting-text mdl-card--expand bus-stop__info-container">
+                                <table class="mdl-data-table mdl-js-data-table bus-stop__info-table">
+                                    <thead>
+                                        <tr>
+                                            <th class="mdl-data-table__cell--non-numeric">Bus</th>
+                                            <th class="mdl-data-table__cell--non-numeric">Estimated</th>
+                                            <th class="mdl-data-table__cell--non-numeric">Scheduled</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- <div class="mdl-card__actions mdl-card--border">
+                                <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Details</a>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+
+                <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored locate-btn">
+                    <i class="material-icons">&#xE1B3;</i>
+                </button>
+            </main>
+        </div>
+
+        <!-- build:js scripts/vendor.js -->
+        <!-- bower:js -->
+        <script src="/bower_components/jquery/dist/jquery.js"></script>
+        <script src="/bower_components/modernizr/modernizr.js"></script>
+        <!-- endbower -->
+        <script src="scripts/vendor/material.js"></script>
+        <script src="scripts/vendor/leaflet-src.js"></script>
+        <!-- endbuild -->
+
+        <!-- build:js(.tmp) scripts/main.js -->
+        <script src="scripts/main.js"></script>
+        <!-- endbuild -->
+    </body>
+</html>
