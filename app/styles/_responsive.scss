@@ -11,3 +11,9 @@
         max-height: 200px;
     }
 }
+
+@media (max-width: $grid-tablet-breakpoint - 1) {
+    .mdl-layout-title {
+        font-size: 16px;
+    }
+}

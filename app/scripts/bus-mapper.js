@@ -7,30 +7,39 @@ import BusInfoCard from './bus-info-card';
 
 var defaults = {
     DEBUG: false,
+    appName: 'London Buses',
     'images-path': '/images',
     'leaflet-images-path': '/images/leaflet',
-    minZoomLevel: 15,
+    minZoomLevel: 16,
     maxZoomLevel: 20,
-    initialZoomLevel: 16
+    initialZoomLevel: 16,
+    errMsgToFar: 'Please zoom in to see the stations!'
 };
 
+/**
+ * BussMapper class
+ * @param {object} options Stores app options
+ * @return {void}
+ */
 function BusMapper(options) {
     this.settings = $.extend({}, defaults, options);
     this._defaults = defaults;
 
     // Cache selectors
     this.locatBtn = $('.locate-btn');
+    this.headerContainer = $('.mdl-layout__header');
+    this.headerTitle = $(this.headerContainer).find('.mdl-layout-title');
 
     this.busStopsAPI = new BusStopsAPI({
         DEBUG: this.settings.DEBUG
     });
 
     this.busStopsPool = new BusStopsPool({
-        DEBUG: false
+        DEBUG: this.settings.DEBUG
     });
 
     this.busInfoCard = new BusInfoCard({
-        DEBUG: false
+        DEBUG: this.settings.DEBUG
     });
 
     this.zoomLevel = 16;
@@ -40,11 +49,18 @@ function BusMapper(options) {
     this._initMapEvents();
 }
 
-
+/**
+ * Initialize app by trying to locate position
+ * @return {void}
+ */
 BusMapper.prototype.init = function() {
     this.initLocation();
 };
 
+/**
+ * Initialize location. Try to locate position (permision will be required). And initalize locate button event.
+ * @return {void}
+ */
 BusMapper.prototype.initLocation = function() {
     this.map.locate({
         setView: true,
@@ -62,6 +78,11 @@ BusMapper.prototype.initLocation = function() {
     });
 };
 
+/**
+ * Refresh the markers on the map. Call the bus stops API based on the current map view
+ * and start adding the markers on the map.
+ * @return {void}
+ */
 BusMapper.prototype.refreshBusStopsOnMap = function() {
     var mapBounds = this.map.getBounds();
 
@@ -76,6 +97,13 @@ BusMapper.prototype.refreshBusStopsOnMap = function() {
     });
 };
 
+
+/**
+ * Add the bus stops on the map as markers.
+ * Before starting to add markers, remove the out of bounds ones first.
+ * @param  {array} busStopsArr Array of markers from the current map view
+ * @return {void}
+ */
 BusMapper.prototype._addBusStopsOnMap = function(busStopsArr) {
     var mapMarker = null;
     var newBusStopsArr = this._cacheCleanBusStops(busStopsArr);
@@ -89,7 +117,6 @@ BusMapper.prototype._addBusStopsOnMap = function(busStopsArr) {
         mapMarker.bindPopup(`<div style="text-align: center;"><b>${busStop.name}</b></div>`);
 
         mapMarker.on('popupopen', (marker) => {
-            // console.log(marker);
             this.map.setView(marker.target._latlng);
             this._showBusStopInfo(marker.target.options.busStopId, busStop.name);
         });
@@ -101,6 +128,12 @@ BusMapper.prototype._addBusStopsOnMap = function(busStopsArr) {
     }
 };
 
+/**
+ * Clean unused markers from the pool and from the map. While also ignoring the ones already there.
+ * This will help with performance while moving and zoomiing the map.
+ * @param  {array} busStopsArr Array of markers from the current map view
+ * @return {array}             Array of new markers that need to be added.
+ */
 BusMapper.prototype._cacheCleanBusStops = function(busStopsArr) {
     var newBusStopsArr = [];
     var oldBusStopsIdsArr = [];
@@ -123,12 +156,23 @@ BusMapper.prototype._cacheCleanBusStops = function(busStopsArr) {
     return newBusStopsArr;
 };
 
+/**
+ * Show bus stop information (departures) on marker click.
+ * @param  {integer} busStopId   The bus stop ID (comes from the API)
+ * @param  {string} busStopName Bus stop name to display on card title
+ * @return {void}
+ */
 BusMapper.prototype._showBusStopInfo = function(busStopId, busStopName) {
     this.busStopsAPI.getBusStopInfo(busStopId).done((busStopInfo) => {
         this.busInfoCard.showBusStopInfo(busStopInfo, busStopName);
     });
 };
 
+/**
+ * Initialize the map and map settings on app load.
+ * Create the bus icon for the map and add the Mapbox layer.
+ * @return {void}
+ */
 BusMapper.prototype._initMap = function() {
     // set defaults
     L.Icon.Default.imagePath = this.settings['leaflet-images-path'];
@@ -161,12 +205,20 @@ BusMapper.prototype._initMap = function() {
     this.map.setView([51.505, -0.09], this.settings.initialZoomLevel);
 };
 
+/**
+ * Initialize map events for UI interaction.
+ * @return {void}
+ */
 BusMapper.prototype._initMapEvents = function() {
     this.map.on('moveend', () => {
         this.settings.DEBUG && console.info('map movedend');
 
         if (this.zoomLevel >= this.settings.minZoomLevel) {
             this.refreshBusStopsOnMap();
+
+            this.notify('default', '');
+        } else {
+            this.notify('error', this.settings.errMsgToFar);
         }
     });
 
@@ -195,6 +247,22 @@ BusMapper.prototype._initMapEvents = function() {
 
         this.map.setView([51.505, -0.09], this.settings.initialZoomLevel);
     });
+};
+
+/**
+ * Change header style and text on request
+ * @param  {string} type Type of message (error, default)
+ * @param  {string} msg  Message text to display on header title.
+ * @return {void}
+ */
+BusMapper.prototype.notify = function(type, msg) {
+    if (type === 'error') {
+        $(this.headerContainer).addClass('mdl-layout__header--error');
+        $(this.headerTitle).html(msg);
+    } else {
+        $(this.headerContainer).removeClass('mdl-layout__header--error');
+        $(this.headerTitle).html(this.settings.appName);
+    }
 };
 
 export default BusMapper;

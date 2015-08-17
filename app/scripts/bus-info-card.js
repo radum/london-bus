@@ -4,6 +4,11 @@ var defaults = {
     DEBUG: false
 };
 
+/**
+ * BusInfoCard class
+ * @param {object} options Stores info card options
+ * @return {void}
+ */
 function BusInfoCard(options) {
     this.settings = $.extend({}, defaults, options);
     this._defaults = defaults;
@@ -23,10 +28,21 @@ function BusInfoCard(options) {
     this.init();
 }
 
+/**
+ * Initialize the info card class (events)
+ * @return {void}
+ */
 BusInfoCard.prototype.init = function() {
     this._initEvents();
 };
 
+/**
+ * Show but stop information (live departures)
+ * Generate the table rows based on data received.
+ * @param  {object} busStopInfo Bus stop information
+ * @param  {string} busStopName Bus stop name to show on card title
+ * @return {void}
+ */
 BusInfoCard.prototype.showBusStopInfo = function(busStopInfo, busStopName) {
     $(this.busStopInfoTable).empty();
 
@@ -45,6 +61,10 @@ BusInfoCard.prototype.showBusStopInfo = function(busStopInfo, busStopName) {
     this.show();
 };
 
+/**
+ * Show the bus stop information card on screen
+ * @return {void}
+ */
 BusInfoCard.prototype.show = function() {
     if (this.state.hidden) {
         $(this.busStopCard).removeClass('hidden');
@@ -53,6 +73,10 @@ BusInfoCard.prototype.show = function() {
     }
 };
 
+/**
+ * Hide the bus stop information card on screen
+ * @return {void}
+ */
 BusInfoCard.prototype.hide = function() {
     if (!this.state.hidden) {
         $(this.busStopCard).addClass('hidden');
@@ -61,12 +85,23 @@ BusInfoCard.prototype.hide = function() {
     }
 };
 
+/**
+ * Initialize bus stop information card events.
+ * Toggle collapse state on click.
+ * @return {void}
+ */
 BusInfoCard.prototype._initEvents = function() {
     $(this.busStopCardTitle).on('click', () => {
         this._changeState('collapsed');
     });
 };
 
+/**
+ * Change bus stop information card state.
+ * Collapse and / or visibility
+ * @param  {state} state What state needs to be updated
+ * @return {void}
+ */
 BusInfoCard.prototype._changeState = function(state) {
     if (state === 'collapsed') {
         if (!this.state.collapsed) {

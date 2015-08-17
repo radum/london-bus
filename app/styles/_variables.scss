@@ -1,4 +1,17 @@
-/* GRID */
+//-- Colors
+
+$tfl-red-color: #cc3333 !default;
+
+//-- Grid
 
 $grid-desktop-breakpoint: 840px !default;
 $grid-tablet-breakpoint: 480px !default;
+
+//-- Z-index master list
+// Avoid customizing these values. They're used for a bird's eye view
+// of components dependent on the z-axis and are designed to all work together.
+
+$zindex-header:              1030 !default;
+$zindex-map:                 1000 !default;
+$zindex-map-elements:        1020 !default;
+$zindex-map-elements-locate: 1010 !default;
