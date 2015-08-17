@@ -49,7 +49,6 @@
         <link rel="stylesheet" href="styles/vendor/material.css">
         <link rel="stylesheet" href="styles/vendor/leaflet.css">
         <!-- bower:css -->
-        <link rel="stylesheet" href="/bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css">
         <!-- endbower -->
         <!-- endbuild -->
 
@@ -73,14 +72,6 @@
                     <span class="mdl-layout-title">London Buses</span>
                     <!-- Add spacer, to align navigation to the right -->
                     <div class="mdl-layout-spacer"></div>
-                    <!-- <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label mdl-textfield--align-right">
-                        <label class="mdl-button mdl-js-button mdl-button--icon" for="fixed-header-drawer-exp">
-                            <i class="material-icons">search</i>
-                        </label>
-                        <div class="mdl-textfield__expandable-holder">
-                            <input class="mdl-textfield__input" type="text" name="sample" id="fixed-header-drawer-exp" />
-                        </div>
-                    </div> -->
                 </div>
             </header>
             <div class="mdl-layout__drawer">
@@ -112,12 +103,10 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        {{bus-stop-info}}
                                     </tbody>
                                 </table>
                             </div>
-                            <!-- <div class="mdl-card__actions mdl-card--border">
-                                <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Details</a>
-                            </div> -->
                         </div>
                     </div>
                 </div>
@@ -131,8 +120,6 @@
         <!-- build:js scripts/vendor.js -->
         <!-- bower:js -->
         <script src="/bower_components/jquery/dist/jquery.js"></script>
-        <script src="/bower_components/jquery-mousewheel/jquery.mousewheel.js"></script>
-        <script src="/bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.js"></script>
         <!-- endbower -->
         <script src="scripts/vendor/material.js"></script>
         <script src="scripts/vendor/leaflet-src.js"></script>
