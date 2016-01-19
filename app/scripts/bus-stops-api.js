@@ -2,7 +2,7 @@
 
 var defaults = {
     DEBUG: false,
-    api_url: 'http://digitaslbi-id-test.herokuapp.com/bus-stops'
+    api_url: 'https://digitaslbi-id-test.herokuapp.com/bus-stops'
 };
 
 /**
