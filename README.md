@@ -2,7 +2,7 @@
 
 ## How to use
 
-Follow this [link](http://development.london-bus.divshot.io/) to the app and follow the instructions on screen.
+Follow this [link](https://london-bus.firebaseapp.com/) to the app and follow the instructions on screen.
 
 ## How to develop & run
 
