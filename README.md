@@ -1,5 +1,7 @@
 # London bus live departures App
 
+DEPRECATED: THE TFL bus API is not working anymore, so the live them won't load the stops.
+
 ## How to use
 
 Follow this [link](https://london-bus.firebaseapp.com/) to the app and follow the instructions on screen.
